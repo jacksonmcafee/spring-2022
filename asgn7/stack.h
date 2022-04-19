@@ -38,7 +38,7 @@ public:
     friend ostream &operator <<(ostream &os, Stack<T> &s) {
       // checks if stack is empty
       if(s._top == 0) {
-        os << " " << endl;
+        os << "Error! Stack is empty!" << endl;
         return os;
         }
       else {
@@ -167,8 +167,15 @@ private:
     }
 
     template < class T >
-    Stack Stack<T>::Stack & operator = (const Stack<T> s) {
-      cout << "do something " << endl;
+    Stack<T>& Stack<T>::operator = (const Stack<T> s) {
+    	// populate Stack with item's values
+      while(Empty() != true) {
+        Pop();
+      }
+    	for(int i = 0; i < s._maxsize; i++) {
+          Push(s._stack[i]);
+    	    }
+          return *this;
     }
 
 #endif
