@@ -5,26 +5,31 @@ using namespace std;
 
 int main() {
 
+    LinkList newList;
 
-    PieCake_struct * one;
-    // assign vals
-    one->id = 1;
-    one->lname = "davids";
-    one->fname = "larry";
-    one->mi = 'c';
+    PieCake_struct * one = new PieCake_struct;
+    one->fname = "andrewson";
+    one->lname = "andrew";
+    one->mi = 'a';
     one->sex = 'm';
-    one->pORc = 'p';
+    one->pORc = 'P';
 
-    PieCake_struct * two;
-    two->id = 2;
-    two->lname = "andrews";
-    two->fname = "andy";
-    two->mi = 'a';
-    two->sex = 'm';
-    two->pORc = 'p';
+    newList.Insert(one);
+    
+    PieCake_struct * two = new PieCake_struct;
+    one->fname = "dave";
+    one->lname = "davidson";
+    one->mi = 'd';
+    one->sex = 'm';
+    one->pORc = 'P';
 
-    LinkList();
+    PieCake_struct * three = new PieCake_struct;
+    one->fname = "jackson";
+    one->lname = "jacksonson";
+    one->mi = 'j';
+    one->sex = 'm';
+    one->pORc = 'P';
 
-    LinkList::Insert(one);
-    LinkList::Insert(two);
+    newList.Insert(two);
+    newList.Insert(three);
 }

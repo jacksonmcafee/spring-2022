@@ -7,19 +7,18 @@ using namespace std;
 LinkList::LinkList() {
 
   // creates a new linked list
-  PieCake_struct* list = new PieCake_struct;
-  list->id = 1;
-  list->prev = nullptr;
-  list->next = nullptr;
+  PieCake_struct* node = new PieCake_struct;
+  node->prev = nullptr;
+  node->next = nullptr;
 
-  head = list;
-  tail = list;
-  current = list;
+  head = node;
+  tail = node;
+  current = node;
 
-  count += 1;
-  cout << "created new list" << endl;
+  cout << "created base node for dll" << endl;
 }
 
+// unfinished
 LinkList::~LinkList() {
   cout << "destroyed" << endl;
 }
@@ -52,7 +51,28 @@ bool LinkList::Find(const int idnumber) {
   return isTrue;
 }
 
-void LinkList::Insert( PieCake_struct * p) {
+void LinkList::Insert(PieCake_struct * p) {
+
+  if(count == 0) {
+    PieCake_struct* node = new PieCake_struct;
+    node->id = current->id + 1;
+
+    node->prev = head;
+    node->next = head->next;
+    head->next = node;
+
+    node->lname = p->lname;
+    node->fname = p->fname;
+    node->mi = p->mi;
+    node->sex = p->sex;
+    node->pORc = p->pORc;
+
+    cout << "placing after head node" << endl;
+
+    current = node;
+    count += 1;
+  }
+
   string temp_last = p->lname;
   current = head;
 
@@ -63,10 +83,24 @@ void LinkList::Insert( PieCake_struct * p) {
         // earlier alpha, create new node
         PieCake_struct* node = new PieCake_struct;
         node->id = current->id + 1;
-        node->prev = current;
-        node->next = current->next;
 
+        // set node prev/next
+        node->prev = current;
+        // set prev node next to node
+        node->next = current->next;
+        // set next next prev to node
         current->next = node;
+
+        node->lname = p->lname;
+        node->fname = p->fname;
+        node->mi = p->mi;
+        node->sex = p->sex;
+        node->pORc = p->pORc;
+
+        current = node;
+        count += 1;
+        cout << "early alpha, listing after" << current->id << endl;
+
         goto END;
       }
       case -1: {
@@ -78,16 +112,53 @@ void LinkList::Insert( PieCake_struct * p) {
         // same strings, create new node
         PieCake_struct* node = new PieCake_struct;
         node->id = current->id + 1;
-        node->prev = current;
-        node->next = current->next;
 
+        // set node prev/next
+        node->prev = current;
+        // set prev node next to node
+        node->next = current->next;
+        // set next next prev to node
         current->next = node;
+
+        node->lname = p->lname;
+        node->fname = p->fname;
+        node->mi = p->mi;
+        node->sex = p->sex;
+        node->pORc = p->pORc;
+
+        current = node;
+        count += 1;
+
+        cout << "equal alpha, listing after" << current->id << endl;
         goto END;
       }
     }
-
+    cout << "not in " << current->id << endl;
     current = current->next;
   }
   END:
-  cout << " ";
+  cout << "";
+}
+
+void LinkList::Print() {
+  cout << "ID    First    M    Last    Sex    Choice" << endl;
+  bool nextNodeExists = true;
+  current = head->next;
+  while(nextNodeExists) {
+    cout << current->fname << " " << current->mi << " " << current->lname << " " << current->sex << " " << current->pORc << endl;
+    if(current->next != nullptr) {
+      current = current->next; }
+    else {
+      nextNodeExists = false;
+      cout << "node didnt exist" << endl;
+    }
+  }
+}
+
+void LinkList::List() {
+  cout << "Current Record ID: " << current->id << endl;
+  cout << "Name (last, first mi): " << current->lname << ", ";
+  cout << current->fname << " " << current->mi << endl;
+  cout << "Sex: " << current->sex << endl;
+  cout << "Choice: " << current->pORc << endl;
 }
