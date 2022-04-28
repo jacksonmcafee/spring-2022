@@ -1,0 +1,188 @@
+How to access a structure or a member of a class
+- use setters or getters to access
+
+Purpose of the word const
+- set a variable to a permanent value
+
+Legal and illegal identifiers ( variables, constants, function names, etc)
+- can't name variables or constants with:
+  - !, =, #, etc.
+  - reserved keywords like int or double, etc.
+  - whitespace
+
+What are built in types for C++
+- built in types are:
+  - int, double, float
+  - char, boolean, void
+
+Number of times a loop is performed
+- just count lol
+
+character vs strings , how are they used and assigned
+- a character is a single element (alphanumeric or ASCII)
+- a string is a set of characters terminated by a null character
+- char is a base type, can be used in c-strings as char[]
+- string needs to be #included to be used (std::string)
+
+Logical operators used in the "if" statement
+- if statements can include if, else if, and else statements
+- if statements will only occur if the parameter handed to them
+  is true
+- else if statements will only occur if the parameter handed to
+  them is true AND the previous if statement is false
+- else statements will only occur if the parameter handed to
+  the previous if statement is false
+- both else and else if require previous if statements to
+  function properly
+
+The purpose of { } braces
+- curly braces encapsulate a function, struct, or class
+  definition
+- they can also be used to declare a variable as follows:
+
+int main() {
+  // first braces are used to declare scope of MAIN
+
+  int a = 10; (sets value of a to 10)
+
+  // normal var declaration above, braces below
+
+  int b{10}; (sets value of b to 10)
+  std::string c{"string"}; (sets value of c to "string")
+
+  return 0;
+}
+
+Homogeneous data types
+- data structures that contain a SINGLE data type
+  - vectors (vector<int>) or arrays (int[]) are good examples
+- heterogeneous data structures are like structs or classes
+
+Know what the difference between a class and object
+- a class is a data type that is user-defined
+  - can contain data containers and functions
+- an object is an instance of a class
+
+Private, public, and protected data types in classes?
+- public data can be modified from outside the class
+- private data cannot be modified from outside the class
+- protected data can be modified from outside the class ONLY WHEN:
+  - an class that inherits from the base class is trying to access
+  the data in the base class
+
+Can you have multiple public, private, protected areas in a class?
+- Yes, there is no limit to the number of qualifiers (ex public)
+
+Rules for constructors
+- must be in the base class
+- are not of a type (i.e. void or int)
+- declared as className::className()
+
+What can a constructor do?
+- you can have multiple constructors:
+  - default constructor that assigns default values
+  - defined constructor that assigns passed values
+  - copy constructor that assigns values to new object from
+    an old object
+
+How do you call a destructor
+- you don't need to call a destructor, they will be automatically
+  called after the object exits its defined scope
+
+
+Understand the BitVector class
+
+    How would you flip a bit
+    How would you set a bit
+    How would you unset a bit
+    How would you set ALL the bits
+    How would you unset ALL the bits
+
+
+What is Overloading
+- overloading is an operation that changes the function of a
+  type or operator
+  - functions can be overloaded by defining them for multiple
+    types, such as:
+
+void print(int i);
+void print(string str);
+void print(char c);
+
+int main() {
+  int i = 0;
+  string myStr = "this is a string"
+
+  print(myStr);
+  print(i);
+}
+
+  - operators can also be overloaded by writing them as
+    a new function, such as:
+
+Box operator+(const Box&, const Box&);
+
+  which might be used to add two Box objects together
+
+
+Know the proper syntax for the << operator overload as a friend
+
+Know what a "friend" is used for and the limitations
+
+
+Know the definition of "namespace"
+- grouping of functions or entities that allows naming of multiple
+  objects as the same thing.
+
+using namespace std;
+
+namespace first {
+  int value = 1;
+}
+
+int main() {
+  double value = 4.0;
+
+  cout << value << endl;
+  // this will print 4.0
+  cout << first::value << endl;
+  // this will print 1
+}
+
+Know why we use "using std;"
+- using namespace std; allows the user to specify that
+  all function calls are specific to the std library instead
+  of some other library
+- for example, if there is a print function in both <stdlib>
+  and in <boost>, defined as std::print and boost::print,
+  if the user specifies "using namespace std", the compiler
+  will know that they intended to use the std::print function
+  every time they call print();
+
+what is recursion and what is it used for the the downfalls.
+
+Know the definition of inheritance
+
+In inheritance what is an "is a " relationship
+
+Syntax of inheritance
+
+What is polymorphism
+
+what are virtual functions
+
+Know the uses and syntax of templates
+
+Be familar with the LinkList project
+
+What is a stack
+
+The purpose of the points head and tail in the link list
+
+The difference between a single and double linked list
+
+What is a queue
+
+what is the purpose of the tail in a linked list
+
+How do you know if you have an empty linked list
