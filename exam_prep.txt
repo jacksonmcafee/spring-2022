@@ -93,11 +93,86 @@ How do you call a destructor
 Understand the BitVector class
 
     How would you flip a bit
+
+void BitVector::Flip(const size_t index) {
+    int word_index = round(floor(index/size));
+    bitlocations = 31 - (index % 32);
+    int temp = bvect[word_index];
+    // creating bitmask
+    int bitmask = 1;
+
+    if(index < 0 || index > size*word_index) {
+	return; }    
+
+    bitmask = bitmask << bitlocations;
+    // apply bitmask
+    temp = temp ^ bitmask;
+    bvect[word_index] = temp;
+}
+
     How would you set a bit
+
+void BitVector::Set(const size_t index) {
+    // locating bit
+    int word_index = round(floor(index/size));
+    bitlocations = 31 - (index % 32);
+    int temp = bvect[word_index];
+    // creating bitmask
+    // 1(00000001)
+    int bitmask = 1;
+
+    if(index < 0 || index > size*word_index) {
+        return; }
+    
+    bitmask = bitmask << bitlocations;
+    // logical OR and setting the bit
+    temp = temp | bitmask;
+    bvect[word_index] = temp;
+}
+
     How would you unset a bit
+
+void BitVector::Unset(const size_t index) {
+    // locating bit
+    int word_index = round(floor(index/size));
+    bitlocations = 31 - (index % 32);
+    // creating bitmask of 0
+    int temp1 = bvect[word_index];
+    int temp2 = bvect[word_index];
+    int bitmask1 = 0;
+    
+    if(index < 0 || index > size*word_index) {
+        return; }
+
+    // shifting bit to first pos
+    temp1 = temp1 >> bitlocations;
+    // logical AND with 0 bitmask,
+    temp1 = temp1 ^ bitmask1;
+    if(temp1 == 1) {
+	temp2 &= ~(1UL << bitlocations);
+	bvect[word_index] = temp2;
+	}
+}
+
     How would you set ALL the bits
+
+void BitVector::Set() {
+    // sets all bit values to 1
+    // 255(11111111)
+    for(int i = 0; i < size; i++) {
+	bvect[i] = 255;
+	}
+}
+
     How would you unset ALL the bits
 
+void BitVector::Unset() {
+    // sets all bit values to 0
+    // 0(00000000)
+    for(int i = 0; i < size; i++) {
+	bvect[i] = 0;
+	}
+}
 
 What is Overloading
 - overloading is an operation that changes the function of a
@@ -127,7 +202,53 @@ Box operator+(const Box&, const Box&);
 
 Know the proper syntax for the << operator overload as a friend
 
+class Date
+{
+    int mo, da, yr;
+public:
+    Date(int m, int d, int y)
+    {
+        mo = m; da = d; yr = y;
+    }
+    friend ostream& operator<<(ostream& os, const Date& dt);
+};
+
+ostream& operator<<(ostream& os, const Date& dt)
+{
+    os << dt.mo << '/' << dt.da << '/' << dt.yr;
+    return os;
+}
+
 Know what a "friend" is used for and the limitations
+- friend functions are functions that are defined in a class that
+  grants access to private/protected class members
+- friend functions can be global or members of other classes
+- derived classes do not inherit friend functions and are not
+  in scope of the original class they are declared
+- friend functions must use object name and dot membershop operator
+  like so:
+
+#include <iostream>
+using namespace std;
+
+class test 
+{
+   private:
+      int a,b ;
+   public:
+      void init( )
+      {
+         a=10;
+         b=20;
+      }
+      friend int computer (test t);
+};
+
+int computer (test t)
+{
+   // uses t.a and t.b to access ints a and b
+   return (t.a+t.b);
+}
 
 
 Know the definition of "namespace"
@@ -160,29 +281,114 @@ Know why we use "using std;"
   every time they call print();
 
 what is recursion and what is it used for the the downfalls.
+- recursion is the idea of a function calling itself over and 
+  over again until some condition is met within the function
+- recursion is good because it cleans up code and makes it
+  clearer
+- recursion can take up stack space and uses more processor
+  time than an iterative loop (for loop instead of while)
+- can be more difficult to debug than iterative loops
 
 Know the definition of inheritance
+- inheritance is the idea that a new class can take on functions
+  and members of another class (base class)
 
 In inheritance what is an "is a " relationship
+- an IS-A relationship is like saying "A is a B type of thing"
+- an Apple is a Fruit and a Car is a Vehicle (but not vice versa)
 
 Syntax of inheritance
+- class subClass : public baseClass
+
+using namespace std;
+class Parent
+{
+  public:
+    int id_p;
+};
+class Child : public Parent
+{
+  public:
+    int id_c;
+};
+int main()
+{
+    Child obj1;
+          
+    // An object of class child has all data members
+    // and member functions of class parent
+    obj1.id_c = 7;
+    obj1.id_p = 91;
+    cout << "Child id is: " <<  obj1.id_c << '\n';
+    cout << "Parent id is: " <<  obj1.id_p << '\n';
+         
+    return 0;
+}
+
 
 What is polymorphism
+- polymorphism is the idea that an entity can act 
+  in two different ways depending on how they are used
+- the "+" operator can add two ints together OR
+  it can concatenate two strings together
 
 what are virtual functions
+- virtual functions are defined within a base class and 
+  must be redefined within inherited classes
 
 Know the uses and syntax of templates
+- templates are used to define functions for generic types
+- this allows objects like vectors to be defined one for
+  a type T while still being implemented for whatever type
+  it is handed (ex. vector<int> and vector<char> both work)
+
+template <class identifier> function_declaration;
+template <typename identifier> function_declaration;
+
+- an example template function is as follows:
+
+template <class myType>
+myType GetMax (myType a, myType b) {
+ return (a>b?a:b);
+} 
+
+- this template works for a class myType and is meant
+  to compare two myType objects
 
 Be familar with the LinkList project
 
 What is a stack
+- a stack is a container in which elements can only be inserted
+  and extracted from the same end
+- works in a LIFO (last in first out) context
+- items can be pushed back to the top or popped back off the top
 
 The purpose of the points head and tail in the link list
+- the head and tail nodes tell you where your linked list
+  begins and ends so that when iterating, you have a place
+  to start and a place to end
 
 The difference between a single and double linked list
+- a singly linked list points in one direction
+- each node only points to the next node and doesn't point
+  backwards (except for the tail)
+- a doubly linked list points in both directions
+- each node points to the next node and the previous node
+  (except for the head and tail)
 
 What is a queue
+- a queue is a container in which elements can only be inserted
+  into one end and can only be extracted from the other end
+- works on a FIFO (first in first out) context
+- elements are pushed into the back end and popped off the front
 
 what is the purpose of the tail in a linked list
+- a tail shows you when the linked list ends
+- when you reach a node in your list that has the 
+  node->next pointer pointing at nullptr, you have reached the 
+  end of the list and can stop iterating
 
 How do you know if you have an empty linked list
+- you have an empty linked list if the head and tail are
+  the same point and point to each other (are the same
+  node)
