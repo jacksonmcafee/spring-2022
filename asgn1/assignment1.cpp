@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 void userInput(int* number_length, int* max_range, int* generation_range);
 void lotteryPulls(int number_length, int max_range, int generation_range);
@@ -49,6 +50,7 @@ void userInput(int* number_length, int* max_range, int* generation_range) {
 void lotteryPulls(int number_length, int max_range, int generation_range) {
     // generates number pulls for user and prints them
     int a = number_length;
+    int pull = 0;
     std::vector<int> arr;
     srand(time(NULL));
     std::cout << "YOUR LOTTERY SELECTIONS ARE:" << std::endl;
@@ -56,9 +58,14 @@ void lotteryPulls(int number_length, int max_range, int generation_range) {
     // generation loop + printing
     for(generation_range > 0; generation_range--;) {
       while(a > 0) {
-        arr.push_back(rand() % max_range + 1);
+        while(std::find(arr.begin(), arr.end(), pull) != arr.end()) {
+          // generate a new value
+          pull = (rand() % max_range + 1);
+        }
+        arr.push_back(pull);
         a--;
       }
+
       a = number_length;
       for(int i=0; i < arr.size(); i++) {
         std::cout << arr.at(i) << ' ';

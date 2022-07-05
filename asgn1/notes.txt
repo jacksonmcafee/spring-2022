@@ -1,6 +1,5 @@
-need to fix randomization range and total # of pulls, make code more clean
-and concise
+need to fix randomization range and total # of pulls
 
-need to find actual assignment details to fix
-pretty sure i need to calculate the chances of winning using
-factorial func too
+calculate winning chances (google for a function tbh)
+
+make code more clean and concise
