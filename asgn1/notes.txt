@@ -1,5 +1,0 @@
-need to fix randomization range and total # of pulls
-
-calculate winning chances (google for a function tbh)
-
-make code more clean and concise

@@ -7,7 +7,8 @@
 
 void userInput(int* number_length, int* max_range, int* generation_range);
 void lotteryPulls(int number_length, int max_range, int generation_range);
-int factorial(int n);
+double factorial(int n);
+void lotteryChances(int n, int r);
 
 int main() {
     // used for function calls and program stucture
@@ -50,13 +51,14 @@ void userInput(int* number_length, int* max_range, int* generation_range) {
 void lotteryPulls(int number_length, int max_range, int generation_range) {
     // generates number pulls for user and prints them
     int a = number_length;
+    int b = generation_range;
     int pull = 0;
     std::vector<int> arr;
     srand(time(NULL));
     std::cout << "YOUR LOTTERY SELECTIONS ARE:" << std::endl;
 
     // generation loop + printing
-    for(generation_range > 0; generation_range--;) {
+    for(b > 0; b--;) {
       while(a > 0) {
         while(std::find(arr.begin(), arr.end(), pull) != arr.end()) {
           // generate a new value
@@ -73,8 +75,19 @@ void lotteryPulls(int number_length, int max_range, int generation_range) {
       arr.clear();
       std::cout << std::endl;
     }
+    lotteryChances(max_range, generation_range);
 }
 
-int factorial(int z) {
-    return (z == 0) || (z == 1) ? 1 : z* factorial(z -1);
+double factorial(int z) {
+  double answer = 1;
+  for(double i = 1; i <= z; ++i) {
+            answer *= i;
+        }
+  return answer;
+}
+
+void lotteryChances(int n, int r) {
+    double chances = (factorial(n) / (factorial(r) * factorial(n-r)));
+
+    std::cout << "Your chances to win are approximately 1 in " << chances << std::endl;
 }
