@@ -164,9 +164,3 @@ size_t BitVector::Size() const {
     return size;
 }
 
-int main() {
-
-  // write test suite
-
-  return 0;
-}
