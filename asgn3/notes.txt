@@ -1,4 +1,7 @@
 this needs to be entirely rebuilt, literally gross
 I cannot BELIEVE I wrote this code man
 
+
+maybe add a macro for using passed "index" to locate correct word and bitlocation
+
 find asgn3 details and start from the ground up
