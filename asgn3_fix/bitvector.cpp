@@ -1,7 +1,72 @@
 #include "bitvector.h"
+#include <cmath>
 
 const int WORDSIZE = 32;
 const int DEFAULT_ARR = 256;
+
+// set index bit
+void BitVector::Set(const size_t index) {
+  int current_word;
+  if(index > size * WORDSIZE || index < 0) {
+    // ERROR: out of range
+    std::cout << "Invalid index, out of range." << std::endl;
+    return;
+  }
+  else {
+    // find correct word then bitlocation
+    current_word = floor(index / WORDSIZE);
+    bitlocations = 32 - (index % WORDSIZE);
+  }
+
+  // bit setting time + can remove couts for final builds
+  std::cout << bvect[current_word] << std::endl;
+  bvect[current_word] |= 1UL << bitlocations;
+  std::cout << bvect[current_word] << std::endl;
+}
+
+// set all bits
+void BitVector::Set() {
+    for (int i = 0; i < size; i++) {
+      bvect[i] = 1;
+    }
+}
+
+// unset index bit
+void BitVector::Unset(const size_t index) {
+  int current_word;
+  if(index > size * WORDSIZE || index < 0) {
+    // ERROR: out of range
+    std::cout << "Invalid index, out of range." << std::endl;
+    return;
+  }
+  else {
+    // find correct word then bitlocation
+    current_word = floor(index / WORDSIZE);
+    bitlocations = 32 - (index % WORDSIZE);
+  }
+
+  // bit-unsetting time + can remove couts for final builds
+  std::cout << bvect[current_word] << std::endl;
+  bvect[current_word] &= ~(1UL << bitlocations);
+  std::cout << bvect[current_word] << std::endl;
+}
+
+// unset all bits
+void BitVector::Unset() {
+  for (int i = 0; i < size; i++) {
+    bvect[i] = 0;
+  }
+}
+
+// flip index bit
+void BitVector::Flip(const size_t index) {
+
+}
+
+// flip all bits
+void BitVector::Flip() {
+
+}
 
 // default constructor
 BitVector::BitVector() {
@@ -47,18 +112,27 @@ BitVector::~BitVector() {
 }
 
 BitVector & BitVector::operator =(const BitVector &a) {
-    BitVector return_bvect;
-    return_bvect.size = a.size;
-    return_bvect.bitlocations = a.bitlocations;
-    return_bvect.bvect = new int[size];
+    if (this == &a) return *this; // prevents self assignment
+
+    size = a.size;
+    bitlocations = a.bitlocations;
+    bvect = new int[size];
     for (int i = 0; i < size; i++) {
-      return_bvect.bvect[i] = a.bvect[i];
+      bvect[i] = a.bvect[i];
     }
 
-    return return_bvect;
+    return *this;
+}
+
+size_t BitVector::Size() const {
+    return size;
 }
 
 int main() {
+
+  BitVector myBitVector;
+  myBitVector.Set(53);
+  myBitVector.Unset(53);
 
   return 0;
 }

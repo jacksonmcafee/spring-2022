@@ -16,6 +16,8 @@ public:
 		  // and ascii value of
 		  // bits turned on.
 
+        /* all below are completed */
+
    BitVector();   // Default constructor 256 bits
    explicit BitVector (size_t bv_size);  // construct a BitVector
 				 // With specified size BitVector
