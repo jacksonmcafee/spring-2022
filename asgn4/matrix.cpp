@@ -110,22 +110,3 @@ void Matrix_Class::Resize(const int r,
   }
 }
 
-int main() {
-  Matrix_Class myMatrix;
-  Matrix_Class badMatrix;
-  int temp_r, temp_c;
-  cout << "Welcome to the Matrix Multiplier!" << endl;
-  cout << "(multiplication coming soon...  )" << endl;
-  cout << "Input your desired row and column size!" << endl;
-  cin >> temp_r >> temp_c;
-  myMatrix.Resize(temp_r, temp_c);
-  myMatrix.Input();
-  myMatrix.Print("Your Matrix");
-  myMatrix.Resize(5, 5);
-  myMatrix.Print("Resized to 5 x 5");
-  
-  cout << "Sorry! Can't actually multiply them!" << endl;
-  cout << "I literally can't figure it out!" << endl;
-  cout << "You can see what I attempted under the header file!" << endl;
-  cout << "Goodbye!" << endl; 
-}
